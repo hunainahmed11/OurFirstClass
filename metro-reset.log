@@ -1,0 +1,113 @@
+
+> ourFirstClass@0.0.1 start
+> react-native start --reset-cache
+
+
+Welcome to React Native v0.86
+Starting dev server on http://localhost:8081
+
+
+                        ▒▒▓▓▓▓▒▒
+                     ▒▓▓▓▒▒░░▒▒▓▓▓▒
+                  ▒▓▓▓▓░░░▒▒▒▒░░░▓▓▓▓▒
+                 ▓▓▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▓▓
+                 ▓▓░░░░░▒▓▓▓▓▓▓▒░░░░░▓▓
+                 ▓▓░░▓▓▒░░░▒▒░░░▒▓▒░░▓▓
+                 ▓▓░░▓▓▓▓▓▒▒▒▒▓▓▓▓▒░░▓▓
+                 ▓▓░░▓▓▓▓▓▓▓▓▓▓▓▓▓▒░░▓▓
+                 ▓▓▒░░▒▒▓▓▓▓▓▓▓▓▒░░░▒▓▓
+                  ▒▓▓▓▒░░░▒▓▓▒░░░▒▓▓▓▒
+                     ▒▓▓▓▒░░░░▒▓▓▓▒
+                        ▒▒▓▓▓▓▒▒
+
+
+ WARN  the transform cache was reset.
+                Welcome to Metro v0.84.4
+              Fast - Scalable - Integrated
+
+
+ ERROR  An unexpected error occurred while installing the latest version of React Native DevTools. Using a fallback version instead. Details:
+
+dotslash error: 'fetch' command failed
+caused by: failed to create directory `C:\Users\Hunain\AppData\Local\dotslash\33`
+caused by: Cannot create a file when that file already exists. (os error 183)
+
+ INFO  Dev server ready. Press Ctrl+C to exit.
+ INFO  Interactive mode is not supported in this environment
+ BUNDLE  ./index.js ░░░░░░░░░░░░░░░░ 0% (0/1)
+ BUNDLE  ./index.js ░░░░░░░░░░░░░░░░ 1% (1/1)
+ BUNDLE  ./index.js ░░░░░░░░░░░░░░░░ 4% (2/6)
+ BUNDLE  ./index.js ▓▓░░░░░░░░░░░░░░ 16% (7/134)
+ BUNDLE  ./index.js ▓▓░░░░░░░░░░░░░░ 16% (18/192)
+ BUNDLE  ./index.js ▓▓░░░░░░░░░░░░░░ 16% (36/208)
+ BUNDLE  ./index.js ▓▓░░░░░░░░░░░░░░ 16% (52/236)
+ BUNDLE  ./index.js ▓▓░░░░░░░░░░░░░░ 16% (60/255)
+ BUNDLE  ./index.js ▓▓░░░░░░░░░░░░░░ 16% (75/268)
+ BUNDLE  ./index.js ▓▓░░░░░░░░░░░░░░ 16% (93/287)
+ BUNDLE  ./index.js ▓▓░░░░░░░░░░░░░░ 16% (114/312)
+ BUNDLE  ./index.js ▓▓░░░░░░░░░░░░░░ 17% (136/321)
+ BUNDLE  ./index.js ▓▓▓░░░░░░░░░░░░░ 22% (157/333)
+ BUNDLE  ./index.js ▓▓▓░░░░░░░░░░░░░ 22% (178/392)
+ BUNDLE  ./index.js ▓▓▓░░░░░░░░░░░░░ 22% (196/413)
+ BUNDLE  ./index.js ▓▓▓░░░░░░░░░░░░░ 23% (216/443)
+ BUNDLE  ./index.js ▓▓▓▓░░░░░░░░░░░░ 25% (239/469)
+ BUNDLE  ./index.js ▓▓▓▓░░░░░░░░░░░░ 27% (255/497)
+ BUNDLE  ./index.js ▓▓▓▓░░░░░░░░░░░░ 28% (270/510)
+ BUNDLE  ./index.js ▓▓▓▓░░░░░░░░░░░░ 29% (294/538)
+ BUNDLE  ./index.js ▓▓▓▓░░░░░░░░░░░░ 30% (316/568)
+ BUNDLE  ./index.js ▓▓▓▓▓░░░░░░░░░░░ 34% (338/579)
+ BUNDLE  ./index.js ▓▓▓▓▓░░░░░░░░░░░ 34% (358/606)
+ BUNDLE  ./index.js ▓▓▓▓▓░░░░░░░░░░░ 35% (379/634)
+ BUNDLE  ./index.js ▓▓▓▓▓▓░░░░░░░░░░ 38% (402/646)
+ BUNDLE  ./index.js ▓▓▓▓▓▓░░░░░░░░░░ 42% (424/651)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓░░░░░░░░░ 44% (441/676)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓░░░░░░░░░ 44% (458/691)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓░░░░░░░░░ 45% (479/707)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓░░░░░░░░░ 48% (498/712)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓░░░░░░░░ 52% (520/720)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓░░░░░░░░ 55% (543/730)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓░░░░░░░ 58% (562/736)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓░░░░░░ 63% (591/740)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓░░░░░░ 67% (614/748)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓░░░░░ 69% (635/800)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓░░░░░ 69% (657/816)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓░░░░░ 69% (681/821)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓░░░░░ 71% (700/825)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓░░░░░ 73% (722/842)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓░░░░░ 74% (740/857)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓░░░░ 77% (757/860)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓░░░ 81% (780/865)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓░░░ 82% (802/889)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓░░░ 82% (819/948)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓░░░ 82% (838/966)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓░░░ 82% (865/982)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓░░░ 82% (887/984)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓░░░ 82% (904/1009)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓░░░ 82% (924/1047)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓░░░ 82% (943/1062)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓░░░ 82% (968/1077)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓░░░ 82% (989/1091)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓░░░ 82% (1004/1125)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓░░░ 82% (1030/1134)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓░░░ 83% (1051/1147)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓░░░ 86% (1074/1154)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓░░░ 87% (1092/1172)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░ 89% (1106/1172)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░ 90% (1122/1180)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░ 90% (1139/1197)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░ 91% (1165/1229)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░ 91% (1183/1238)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░ 92% (1208/1259)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░ 92% (1225/1278)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░ 92% (1242/1292)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░ 92% (1269/1326)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░ 92% (1293/1356)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░ 92% (1317/1379)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░ 94% (1346/1382)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░ 96% (1374/1411)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░ 97% (1401/1421)
+ BUNDLE  ./index.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░ 99% (1425/1425)
+ BUNDLE  ./index.js 
+ ERROR  [timeout] connection terminated with Device for app='com.ourfirstclass' on device='sdk_gphone64_x86_64 - 16 - API 36' after not responding for 60 seconds.
+ ERROR  [timeout] connection terminated with Device for app='com.ourfirstclass' on device='sdk_gphone64_x86_64 - 16 - API 36' after not responding for 60 seconds.
+ ERROR  [timeout] connection terminated with Device for app='com.ourfirstclass' on device='sdk_gphone64_x86_64 - 16 - API 36' after not responding for 60 seconds.
