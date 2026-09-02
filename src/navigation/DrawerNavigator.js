@@ -19,8 +19,8 @@ const Drawer = createDrawerNavigator();
 
 export default function DrawerNavigator() {
   return (
-    <Drawer.Navigator initialRouteName="HomeDrawer">
-      <Drawer.Screen name="HomeDrawer" component={TabNavigator} options={{ title: 'Home' }} />
+    <Drawer.Navigator initialRouteName="HomeDrawer" screenOptions={{ headerShown: true }}>
+      <Drawer.Screen name="HomeDrawer" component={TabNavigator} options={{ title: 'Home' ,headerShown: true}} />
       <Drawer.Screen name="Components" component={ComponentsScreen} />
       <Drawer.Screen name="Styling" component={StylingScreen} />
       <Drawer.Screen name="Flexbox" component={FlexboxScreen} />

@@ -1,14 +1,13 @@
 import React from 'react';
 import { View, Text, Image, Button, Pressable, ScrollView, StyleSheet } from 'react-native';
 import global from '../styles/global';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import Header from '../components/header';
+
 
 export default function ComponentsScreen() {
   return (
-    <SafeAreaView style={global.screen}>
-
-
     <ScrollView style={global.screen}>
+        {/* <Header title="Components Demo" /> */}
       <Text style={global.header}>Components Demo</Text>
       <Text style={global.subtitle}>Basic React Native core components with short explanations.</Text>
 
@@ -54,7 +53,7 @@ export default function ComponentsScreen() {
         </ScrollView>
         <Text style={styles.note}>Use ScrollView for small scrollable areas.</Text>
       </View>
-    </ScrollView>    </SafeAreaView>
+    </ScrollView>
   );
 }
 

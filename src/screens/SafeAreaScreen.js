@@ -20,6 +20,10 @@ export default function SafeAreaScreen() {
         <Text style={styles.title}>Example</Text>
         <Text style={styles.text}>This screen is wrapped by SafeAreaView to keep content visible.</Text>
       </View>
+       <View style={styles.card}>
+        <Text style={styles.title}>Example</Text>
+        <Text style={styles.text}>This screen is wrapped by SafeAreaView to keep content visible.</Text>
+      </View>
     </SafeAreaView>
   );
 }
