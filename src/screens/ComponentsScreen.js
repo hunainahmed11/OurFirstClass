@@ -1,10 +1,13 @@
 import React from 'react';
 import { View, Text, Image, Button, Pressable, ScrollView, StyleSheet } from 'react-native';
 import global from '../styles/global';
+import Header from '../components/header';
+
 
 export default function ComponentsScreen() {
   return (
     <ScrollView style={global.screen}>
+        {/* <Header title="Components Demo" /> */}
       <Text style={global.header}>Components Demo</Text>
       <Text style={global.subtitle}>Basic React Native core components with short explanations.</Text>
 
