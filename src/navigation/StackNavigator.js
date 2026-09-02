@@ -15,12 +15,13 @@ import MapVsFlatListScreen from '../screens/MapVsFlatListScreen';
 import NavigationDemoScreen from '../screens/NavigationDemoScreen';
 import PracticeScreen from '../screens/PracticeScreen';
 import AboutScreen from '../screens/AboutScreen';
+import StudentScreen from '../screens/StudentScreen';
 
 const Stack = createNativeStackNavigator();
 
 export default function StackNavigator() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: true }}>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Components" component={ComponentsScreen} />
       <Stack.Screen name="Styling" component={StylingScreen} />
@@ -36,6 +37,7 @@ export default function StackNavigator() {
       <Stack.Screen name="NavigationDemo" component={NavigationDemoScreen} />
       <Stack.Screen name="Practice" component={PracticeScreen} />
       <Stack.Screen name="About" component={AboutScreen} />
+      <Stack.Screen name="StudentScreen" component={StudentScreen} />
     </Stack.Navigator>
   );
 }

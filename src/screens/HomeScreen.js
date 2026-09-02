@@ -17,6 +17,7 @@ export default function HomeScreen({ navigation }) {
     { key: 'FlatList', emoji: '📋', desc: 'Efficient lists with FlatList' },
     { key: 'MapVsFlatList', emoji: '⚖️', desc: 'map() vs FlatList' },
     { key: 'NavigationDemo', emoji: '🧭', desc: 'Navigation playground' },
+    { key: 'StudentScreen', emoji: '🧭', desc: 'Student card example' },
   ];
 
   return (
