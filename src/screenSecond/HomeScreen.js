@@ -25,6 +25,9 @@ export default function HomeScreen({ navigation }) {
           <Text style={styles.badge}>{cartCount}</Text>
         </Pressable>
       </View>
+      <Pressable onPress={() => navigation.navigate('AddStudent')}>
+        <Text style={styles.cartIcon}>Add Students Screen</Text>
+      </Pressable>
 
       <View style={styles.hero}>
         <View style={styles.heroCopy}>
@@ -69,6 +72,8 @@ export default function HomeScreen({ navigation }) {
         <Pressable onPress={() => navigation.navigate('Timer')}><Text style={styles.link}>Timer lesson</Text></Pressable>
         <Pressable onPress={() => navigation.navigate('Profile')}><Text style={styles.link}>Profile</Text></Pressable>
         <Pressable onPress={() => navigation.navigate('Settings')}><Text style={styles.link}>Settings</Text></Pressable>
+        <Pressable onPress={() => navigation.navigate('UserProfile')}><Text style={styles.link}>User Profile</Text></Pressable>
+        <Pressable onPress={() => navigation.navigate('Comment')}><Text style={styles.link}>Comment</Text></Pressable>
       </View>
     </ScrollView>
   );

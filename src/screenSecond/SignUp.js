@@ -1,4 +1,3 @@
-```javascript
 import React, {useState} from 'react';
 import {
   View,
@@ -11,37 +10,36 @@ import {
 
 import {
   getAuth,
-  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
 } from '@react-native-firebase/auth';
 
-const Login = ({navigation}) => {
+const SignUp = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const loginUser = async () => {
+  const signupUser = async () => {
     try {
       const auth = getAuth();
 
-      const result = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password,
-      );
+      const result =
+        await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password,
+        );
 
       console.log(result.user);
 
       Alert.alert(
         'Success',
-        'Login Successful',
+        'Account Created',
       );
-
-      navigation.navigate('Home');
 
     } catch (error) {
       console.log(error);
 
       Alert.alert(
-        'Login Error',
+        'Error',
         error.message,
       );
     }
@@ -51,11 +49,11 @@ const Login = ({navigation}) => {
     <View style={styles.container}>
 
       <Text style={styles.heading}>
-        Login
+        Sign Up
       </Text>
 
       <TextInput
-        placeholder="Email"
+        placeholder="Enter Email"
         placeholderTextColor="#160202"
         value={email}
         onChangeText={setEmail}
@@ -64,7 +62,7 @@ const Login = ({navigation}) => {
       />
 
       <TextInput
-        placeholder="Password"
+        placeholder="Enter Password"
         placeholderTextColor="#160202"
         value={password}
         onChangeText={setPassword}
@@ -73,17 +71,16 @@ const Login = ({navigation}) => {
       />
 
       <Button
-        title="Login"
-        onPress={loginUser}
+        title="Create Account"
+        onPress={signupUser}
       />
-
       <View style={styles.button}>
-        <Button
-          title="Go to Sign Up"
-          onPress={() => navigation.navigate('SignUp')}
-        />
-      </View>
-
+      <Button
+        title="Go to Login"
+        onPress={() => navigation.navigate('Login')}
+        
+      />
+    </View>
     </View>
   );
 };
@@ -107,13 +104,10 @@ const styles = StyleSheet.create({
     padding: 12,
     marginBottom: 15,
     borderRadius: 8,
-    color: '#160202',
   },
-
   button: {
     marginTop: 10,
   },
 });
 
-export default Login;
-```
+export default SignUp;
