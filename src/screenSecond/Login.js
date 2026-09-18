@@ -1,58 +1,58 @@
-import React, { useState, useEffect } from 'react';
-import { View, TextInput, Text, Button, StyleSheet, Alert} from 'react-native';
+import React, { useState } from 'react';
+import { Alert, Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { getAuth, signInWithEmailAndPassword } from '@react-native-firebase/auth';
 
-const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isValid, setIsValid] = useState(false);
+export default function Login({ navigation }) {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-  useEffect(() => {
+    const loginUser = async () => {
+        if (!email || !password) {
+            Alert.alert('Error', 'Please enter email and password');
+            return;
+        }
 
-    // Check karein ke email me @ hai aur password 6 digits se ziada hai
-    const isEmailValid = email.includes('@');
-    const isPasswordValid = password.length >= 6;
+        try {
+            await signInWithEmailAndPassword(getAuth(), email, password);
+            console.log('User logged in successfully');
+            console.log('Current User:', getAuth().currentUser);
+            console.log('User Email:', getAuth().currentUser.email);
 
-    if (isEmailValid && isPasswordValid) {
-      setIsValid(true);
-    } else {
-      setIsValid(false);
-    }
+        } catch (error) {
+            Alert.alert('Login Error', error.message);
+        }
+    };
 
-  }, [email, password]); // EMAIL YA PASSWORD ME SE KOI BHI CHANGE HO TO YEH CHALEGA
-
-  return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter Email"
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
-      />
-      
-      <TextInput
-        style={styles.input}
-        placeholder="Enter Password (Min 6 chars)"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      />
-
-      <Button title="Login" disabled={!isValid} onPress={() => Alert.alert('Logged In!')} />
-      
-      {!isValid && (
-        <Text style={styles.errorText}>
-          Valid email aur kam se kam 6 character password darakar hai.
-        </Text>
-      )}
-    </View>
-  );
-};
+    return (
+        <View style={styles.container}>
+            <Text style={styles.heading}>Login</Text>
+            <TextInput
+                placeholder="Email"
+                value={email}
+                onChangeText={setEmail}
+                autoCapitalize="none"
+                keyboardType="email-address"
+                style={styles.input}
+                placeholderTextColor="#999"
+            />
+            <TextInput
+                placeholder="Password"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry
+                style={styles.input}
+                placeholderTextColor="#999"
+            />
+            <Button title="Login" onPress={loginUser} />
+            <View style={styles.buttonSpace} />
+            <Button title="Create a new account" onPress={() => navigation.navigate('SignUp') } />
+        </View>
+    );
+}
 
 const styles = StyleSheet.create({
-  container: { padding: 20 },
-  input: { borderWidth: 1, borderColor: '#ccc', borderRadius: 8, padding: 12, marginBottom: 12 },
-  errorText: { color: 'red', marginTop: 8, fontSize: 12 },
+    container: { flex: 1, justifyContent: 'center', padding: 30 },
+    heading: { fontSize: 28, fontWeight: 'bold', marginBottom: 30 },
+    input: { borderWidth: 1, borderColor: '#ccc', padding: 12, marginBottom: 15, borderRadius: 8 },
+    buttonSpace: { height: 12 },
 });
-
-export default Login;

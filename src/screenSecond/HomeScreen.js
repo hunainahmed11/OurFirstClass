@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { getAuth, signOut } from '@react-native-firebase/auth';
 
 const products = [
   { name: 'React Native Book', price: '$18', icon: '📘', color: '#E8F1FF' },
@@ -9,9 +10,16 @@ const products = [
 ];
 
 export default function HomeScreen({ navigation }) {
-  // State banayi
   const [name, setName] = useState('Student');
   const [cartCount, setCartCount] = useState(0);
+
+  const logoutUser = async () => {
+    try {
+      await signOut(getAuth());
+    } catch (error) {
+      console.log('Logout Error:', error);
+    }
+  };
 
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
@@ -25,12 +33,15 @@ export default function HomeScreen({ navigation }) {
           <Text style={styles.badge}>{cartCount}</Text>
         </Pressable>
       </View>
-
+ <Pressable style={styles.cart} onPress={() =>navigation.navigate('AddStudent')}>
+          <Text style={styles.cartIcon}>Add Students Screen</Text>
+        
+        </Pressable>
       <View style={styles.hero}>
         <View style={styles.heroCopy}>
           <Text style={styles.heroKicker}>STUDENT PICKS</Text>
           <Text style={styles.heroTitle}>Everything for your next big idea.</Text>
-          <Pressable style={styles.shopButton} onPress={() => setName('Ali')}>
+          <Pressable style={styles.shopButton} onPress={() => navigation.navigate('Comment')}>
             <Text style={styles.shopButtonText}>Explore now  →</Text>
           </Pressable>
         </View>
@@ -39,21 +50,32 @@ export default function HomeScreen({ navigation }) {
 
       <View style={styles.sectionHeader}>
         <Text style={styles.sectionTitle}>Browse categories</Text>
-        <Text style={styles.seeAll}>See all</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('DeleteApi')}>
+          <Text style={styles.seeAll}>See all</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.categories}>
         <Text style={styles.categoryActive}>All items</Text>
-        <Text style={styles.category}>Books</Text>
-        <Text style={styles.category}>Desk setup</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('GetApi')}>
+          <Text style={styles.category}>Books</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('PostApi')}>
+          <Text style={styles.category}>Desk setup</Text>
+        </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('PatchApi')}>
+          <Text style={styles.category}>Patch Api</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.sectionHeader}>
-        <Text style={styles.sectionTitle}>Popular this week</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('UpdateApi')}>
+          <Text style={styles.sectionTitle}>Popular this week</Text>
+        </TouchableOpacity>
         <Text style={styles.count}>{products.length} items</Text>
       </View>
       <View style={styles.grid}>
         {products.map((product) => (
-          <Pressable key={product.name} style={styles.card} onPress={() => setCartCount(cartCount + 1)}>
+          <Pressable key={product.name} style={styles.card} onPress={() => navigation.navigate('InstaPost')}>
             <View style={[styles.productImage, { backgroundColor: product.color }]}>
               <Text style={styles.productIcon}>{product.icon}</Text>
               <Text style={styles.heart}>♡</Text>
@@ -70,6 +92,9 @@ export default function HomeScreen({ navigation }) {
         <Pressable onPress={() => navigation.navigate('Profile')}><Text style={styles.link}>Profile</Text></Pressable>
         <Pressable onPress={() => navigation.navigate('Settings')}><Text style={styles.link}>Settings</Text></Pressable>
       </View>
+      <Pressable style={styles.logoutButton} onPress={logoutUser}>
+        <Text style={styles.logoutText}>Log out</Text>
+      </Pressable>
     </ScrollView>
   );
 }
@@ -107,4 +132,6 @@ const styles = StyleSheet.create({
   price: { color: '#E87843', fontSize: 16, fontWeight: '800', marginHorizontal: 12, marginTop: 5 },
   bottomLinks: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginTop: 28, paddingBottom: 20, gap: 12 },
   link: { color: '#1D4F4A', fontSize: 12, fontWeight: '700' },
+  logoutButton: { backgroundColor: '#1D4F4A', padding: 14, borderRadius: 9, alignItems: 'center', marginBottom: 20 },
+  logoutText: { color: '#FFFFFF', fontWeight: '700' },
 });
