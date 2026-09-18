@@ -1,17 +1,38 @@
-import React, { useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { getAuth, signOut } from '@react-native-firebase/auth';
 
-const products = [
-  { name: 'React Native Book', price: '$18', icon: '📘', color: '#E8F1FF' },
-  { name: 'Study Headphones', price: '$32', icon: '🎧', color: '#FFF0E5' },
-  { name: 'Daily Planner', price: '$12', icon: '📓', color: '#EAF8F0' },
-  { name: 'Desk Lamp', price: '$26', icon: '💡', color: '#FFF7D6' },
+const COLORS = {
+  background: '#F6F7FB',
+  primary: '#315C55',
+  accent: '#F2B84B',
+  card: '#FFFFFF',
+  text: '#202124',
+  secondaryText: '#74777F',
+  light: '#EEF3F3',
+  white: '#FFFFFF',
+};
+
+const basicLessons = [
+  { title: 'Counter', subtitle: 'Practice useState', screen: 'Counter' },
+  { title: 'Timer', subtitle: 'Practice useEffect & cleanup', screen: 'Timer' },
+];
+
+const apiLessons = [
+  { title: 'GET API', subtitle: 'Fetch data from API', screen: 'GetApi' },
+  { title: 'POST API', subtitle: 'Create data', screen: 'PostApi' },
+  { title: 'PATCH API', subtitle: 'Update data', screen: 'PatchApi' },
+  { title: 'DELETE API', subtitle: 'Delete data', screen: 'DeleteApi' },
+];
+
+const firebaseLessons = [
+  { title: 'Firestore Students', subtitle: 'Add & Get student data', screen: 'AddStudent' },
 ];
 
 export default function HomeScreen({ navigation }) {
-  const [name, setName] = useState('Student');
-  const [cartCount, setCartCount] = useState(0);
+  const user = getAuth().currentUser;
+  const displayName = user?.displayName || user?.email?.split('@')[0] || 'Student';
+  const userEmail = user?.email || 'student@gmail.com';
 
   const logoutUser = async () => {
     try {
@@ -21,117 +42,162 @@ export default function HomeScreen({ navigation }) {
     }
   };
 
+  const renderLessonCards = (items) =>
+    items.map((item) => (
+      <Pressable
+        key={item.title}
+        style={styles.lessonCard}
+        onPress={() => navigation.navigate(item.screen)}
+      >
+        <Text style={styles.lessonTitle}>{item.title}</Text>
+        <Text style={styles.lessonSubtitle}>{item.subtitle}</Text>
+      </Pressable>
+    ));
+
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
       <View style={styles.header}>
         <View>
-          <Text style={styles.smallText}>Good morning,</Text>
-          <Text style={styles.name}>{name} <Text style={styles.wave}>✦</Text></Text>
+          <Text style={styles.greeting}>Good morning,</Text>
+          <Text style={styles.name}>{displayName}</Text>
+          <Text style={styles.email}>{userEmail}</Text>
         </View>
-        <Pressable style={styles.cart} onPress={() => setCartCount(cartCount + 1)}>
-          <Text style={styles.cartIcon}>🛒</Text>
-          <Text style={styles.badge}>{cartCount}</Text>
+      </View>
+
+      <View style={styles.heroCard}>
+        <Text style={styles.heroKicker}>React Native Learning Hub</Text>
+        <Text style={styles.heroTitle}>Practice the concepts you have learned in class.</Text>
+      </View>
+
+      <Text style={styles.sectionLabel}>React Native Basics</Text>
+      <View style={styles.lessonGrid}>{renderLessonCards(basicLessons)}</View>
+
+      <Text style={styles.sectionLabel}>REST API Practice</Text>
+      <View style={styles.lessonGrid}>{renderLessonCards(apiLessons)}</View>
+
+      <Text style={styles.sectionLabel}>Firebase</Text>
+      <View style={styles.lessonGrid}>{renderLessonCards(firebaseLessons)}</View>
+
+      <Text style={styles.sectionLabel}>Account</Text>
+      <View style={styles.accountRow}>
+        <Pressable style={styles.accountCard} onPress={() => navigation.navigate('Profile')}>
+          <Text style={styles.accountTitle}>Profile</Text>
+        </Pressable>
+        <Pressable style={styles.accountCard} onPress={() => navigation.navigate('Settings')}>
+          <Text style={styles.accountTitle}>Settings</Text>
         </Pressable>
       </View>
- <Pressable style={styles.cart} onPress={() =>navigation.navigate('AddStudent')}>
-          <Text style={styles.cartIcon}>Add Students Screen</Text>
-        
-        </Pressable>
-      <View style={styles.hero}>
-        <View style={styles.heroCopy}>
-          <Text style={styles.heroKicker}>STUDENT PICKS</Text>
-          <Text style={styles.heroTitle}>Everything for your next big idea.</Text>
-          <Pressable style={styles.shopButton} onPress={() => navigation.navigate('Comment')}>
-            <Text style={styles.shopButtonText}>Explore now  →</Text>
-          </Pressable>
-        </View>
-        <Text style={styles.heroIcon}>🎒</Text>
-      </View>
 
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionTitle}>Browse categories</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('DeleteApi')}>
-          <Text style={styles.seeAll}>See all</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.categories}>
-        <Text style={styles.categoryActive}>All items</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('GetApi')}>
-          <Text style={styles.category}>Books</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('PostApi')}>
-          <Text style={styles.category}>Desk setup</Text>
-        </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('PatchApi')}>
-          <Text style={styles.category}>Patch Api</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.sectionHeader}>
-        <TouchableOpacity onPress={() => navigation.navigate('UpdateApi')}>
-          <Text style={styles.sectionTitle}>Popular this week</Text>
-        </TouchableOpacity>
-        <Text style={styles.count}>{products.length} items</Text>
-      </View>
-      <View style={styles.grid}>
-        {products.map((product) => (
-          <Pressable key={product.name} style={styles.card} onPress={() => navigation.navigate('InstaPost')}>
-            <View style={[styles.productImage, { backgroundColor: product.color }]}>
-              <Text style={styles.productIcon}>{product.icon}</Text>
-              <Text style={styles.heart}>♡</Text>
-            </View>
-            <Text style={styles.productName}>{product.name}</Text>
-            <Text style={styles.price}>{product.price}</Text>
-          </Pressable>
-        ))}
-      </View>
-
-      <View style={styles.bottomLinks}>
-        <Pressable onPress={() => navigation.navigate('Counter')}><Text style={styles.link}>Counter lesson</Text></Pressable>
-        <Pressable onPress={() => navigation.navigate('Timer')}><Text style={styles.link}>Timer lesson</Text></Pressable>
-        <Pressable onPress={() => navigation.navigate('Profile')}><Text style={styles.link}>Profile</Text></Pressable>
-        <Pressable onPress={() => navigation.navigate('Settings')}><Text style={styles.link}>Settings</Text></Pressable>
-      </View>
       <Pressable style={styles.logoutButton} onPress={logoutUser}>
-        <Text style={styles.logoutText}>Log out</Text>
+        <Text style={styles.logoutText}>Logout</Text>
       </Pressable>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: '#F8F8F6' },
-  content: { padding: 20, paddingTop: 52 },
-  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 },
-  smallText: { color: '#77766F', fontSize: 13 },
-  name: { color: '#20211F', fontSize: 25, fontWeight: '700', marginTop: 3 },
-  wave: { color: '#E87843', fontSize: 19 },
-  cart: { backgroundColor: '#FFFFFF', borderRadius: 14, padding: 12, position: 'relative' },
-  cartIcon: { fontSize: 22 },
-  badge: { position: 'absolute', right: -5, top: -6, backgroundColor: '#E87843', color: '#FFFFFF', borderRadius: 10, minWidth: 19, padding: 3, textAlign: 'center', fontSize: 11 },
-  hero: { backgroundColor: '#1D4F4A', borderRadius: 22, minHeight: 190, padding: 22, flexDirection: 'row', alignItems: 'center', overflow: 'hidden' },
-  heroCopy: { flex: 1 },
-  heroKicker: { color: '#A8D4C5', fontSize: 11, fontWeight: '700', letterSpacing: 1 },
-  heroTitle: { color: '#FFFFFF', fontSize: 24, fontWeight: '700', lineHeight: 29, marginVertical: 10 },
-  shopButton: { backgroundColor: '#F4C95D', alignSelf: 'flex-start', paddingHorizontal: 14, paddingVertical: 10, borderRadius: 9 },
-  shopButtonText: { color: '#24443F', fontWeight: '700', fontSize: 12 },
-  heroIcon: { fontSize: 68, transform: [{ rotate: '-8deg' }] },
-  sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 27, marginBottom: 12 },
-  sectionTitle: { fontSize: 18, color: '#20211F', fontWeight: '700' },
-  seeAll: { color: '#E87843', fontWeight: '600' },
-  count: { color: '#99978F', fontSize: 12 },
-  categories: { flexDirection: 'row', gap: 9 },
-  categoryActive: { backgroundColor: '#E87843', color: '#FFFFFF', paddingHorizontal: 15, paddingVertical: 9, borderRadius: 20, overflow: 'hidden', fontWeight: '700' },
-  category: { backgroundColor: '#FFFFFF', color: '#686861', paddingHorizontal: 15, paddingVertical: 9, borderRadius: 20, overflow: 'hidden' },
-  grid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', gap: 14 },
-  card: { width: '47.5%', backgroundColor: '#FFFFFF', borderRadius: 16, paddingBottom: 13, overflow: 'hidden' },
-  productImage: { height: 125, justifyContent: 'center', alignItems: 'center', position: 'relative' },
-  productIcon: { fontSize: 54 },
-  heart: { position: 'absolute', right: 9, top: 7, color: '#555', fontSize: 24 },
-  productName: { color: '#30312E', fontWeight: '600', fontSize: 14, marginHorizontal: 12, marginTop: 11 },
-  price: { color: '#E87843', fontSize: 16, fontWeight: '800', marginHorizontal: 12, marginTop: 5 },
-  bottomLinks: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginTop: 28, paddingBottom: 20, gap: 12 },
-  link: { color: '#1D4F4A', fontSize: 12, fontWeight: '700' },
-  logoutButton: { backgroundColor: '#1D4F4A', padding: 14, borderRadius: 9, alignItems: 'center', marginBottom: 20 },
-  logoutText: { color: '#FFFFFF', fontWeight: '700' },
+  screen: {
+    flex: 1,
+    backgroundColor: COLORS.background,
+  },
+  content: {
+    padding: 20,
+    paddingTop: 52,
+    paddingBottom: 36,
+  },
+  header: {
+    marginBottom: 18,
+  },
+  greeting: {
+    color: COLORS.secondaryText,
+    fontSize: 15,
+  },
+  name: {
+    color: COLORS.text,
+    fontSize: 28,
+    fontWeight: '700',
+    marginTop: 4,
+  },
+  email: {
+    color: COLORS.secondaryText,
+    fontSize: 14,
+    marginTop: 4,
+  },
+  heroCard: {
+    backgroundColor: COLORS.primary,
+    borderRadius: 22,
+    padding: 22,
+    marginBottom: 18,
+  },
+  heroKicker: {
+    color: COLORS.accent,
+    fontSize: 12,
+    fontWeight: '700',
+    letterSpacing: 0.8,
+  },
+  heroTitle: {
+    color: COLORS.white,
+    fontSize: 24,
+    fontWeight: '700',
+    marginTop: 10,
+    lineHeight: 30,
+  },
+  sectionLabel: {
+    color: COLORS.text,
+    fontSize: 18,
+    fontWeight: '700',
+    marginTop: 16,
+    marginBottom: 12,
+  },
+  lessonGrid: {
+    gap: 10,
+  },
+  lessonCard: {
+    backgroundColor: COLORS.card,
+    borderRadius: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+  },
+  lessonTitle: {
+    color: COLORS.text,
+    fontSize: 17,
+    fontWeight: '700',
+  },
+  lessonSubtitle: {
+    color: COLORS.secondaryText,
+    fontSize: 13,
+    marginTop: 4,
+  },
+  accountRow: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+  accountCard: {
+    flex: 1,
+    backgroundColor: COLORS.card,
+    borderRadius: 14,
+    paddingVertical: 16,
+    paddingHorizontal: 14,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    alignItems: 'center',
+  },
+  accountTitle: {
+    color: COLORS.primary,
+    fontWeight: '700',
+  },
+  logoutButton: {
+    marginTop: 26,
+    backgroundColor: COLORS.primary,
+    borderRadius: 14,
+    paddingVertical: 14,
+    alignItems: 'center',
+  },
+  logoutText: {
+    color: COLORS.white,
+    fontSize: 16,
+    fontWeight: '700',
+  },
 });

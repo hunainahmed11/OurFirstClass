@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, View} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {getAuth, onAuthStateChanged} from '@react-native-firebase/auth';
+import { getAuth, onAuthStateChanged } from '@react-native-firebase/auth';
 import HomeScreen from './HomeScreen';
 import CounterScreen from './CounterScreen';
 import TimerScreen from './TimerScreen';
@@ -36,14 +36,14 @@ export default function StackNavigator() {
 
   if (loading) {
     return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size="large" />
       </View>
     );
   }
 
   return (
-    <Stack.Navigator  screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       {user == null ? (
         <>
           <Stack.Screen name="Login" component={Login} />

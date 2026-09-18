@@ -1,20 +1,31 @@
 import React, { useState } from 'react';
 import {
-  View,
+  Alert,
+  FlatList,
+  Pressable,
+  StyleSheet,
   Text,
   TextInput,
-  Button,
-  Alert,
-  StyleSheet,
-  FlatList,
+  View,
 } from 'react-native';
 
 import {
-  getFirestore,
-  collection,
   addDoc,
-  getDocs
+  collection,
+  getDocs,
+  getFirestore,
 } from '@react-native-firebase/firestore';
+
+const COLORS = {
+  background: '#F6F7FB',
+  primary: '#315C55',
+  accent: '#F2B84B',
+  card: '#FFFFFF',
+  text: '#202124',
+  secondaryText: '#74777F',
+  border: '#E3E6EC',
+  white: '#FFFFFF',
+};
 
 const AddStudent = () => {
   const [name, setName] = useState('');
@@ -23,10 +34,13 @@ const AddStudent = () => {
   const [students, setStudents] = useState([]);
 
   const addStudent = async () => {
+    if (!name.trim() || !age || !course.trim()) {
+      Alert.alert('Error', 'Please fill in name, age and course');
+      return;
+    }
+
     try {
       const db = getFirestore();
-
-
 
       await addDoc(
         collection(db, 'students'),
@@ -36,97 +50,98 @@ const AddStudent = () => {
           course: course,
         },
       );
+
       console.log('Student added successfully!');
       console.log('Student Details:', { name, age, course });
 
+      Alert.alert('Success', 'Student Added Successfully');
 
-      Alert.alert(
-        'Success',
-        'Student Added Successfully',
-      );
-
-      // Clear inputs after adding student
       setName('');
       setAge('');
       setCourse('');
-
     } catch (error) {
       console.log(error);
-
-      Alert.alert(
-        'Error',
-        error.message,
-      );
+      Alert.alert('Error', error.message);
     }
   };
+
   const getStudents = async () => {
     try {
       const db = getFirestore();
-      const snapshot = await getDocs(collection(db, 'students'),);
-      const studentList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data(), }));
+      const snapshot = await getDocs(collection(db, 'students'));
+      const studentList = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
       setStudents(studentList);
       console.log('Students retrieved successfully!');
       console.log('Student List:', studentList);
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Error', error.message);
     }
-    catch (error) { console.log(error); }
   };
-
 
   return (
     <View style={styles.container}>
+      <Text style={styles.heading}>Student Records</Text>
+      <Text style={styles.subheading}>Practice Firestore CREATE and READ</Text>
 
-      <Text style={styles.heading}>
-        Add Student
-      </Text>
+      <View style={styles.formCard}>
+        <TextInput
+          style={styles.input}
+          placeholder="Name"
+          value={name}
+          onChangeText={setName}
+          placeholderTextColor={COLORS.secondaryText}
+        />
 
-      <TextInput
-        style={styles.input}
-        placeholder="Enter Name"
-        value={name}
-        onChangeText={setName}
-        placeholderTextColor="#999"
-      />
+        <TextInput
+          style={styles.input}
+          placeholder="Age"
+          value={age}
+          onChangeText={setAge}
+          keyboardType="numeric"
+          placeholderTextColor={COLORS.secondaryText}
+        />
 
-      <TextInput
-        style={styles.input}
-        placeholder="Enter Age"
-        value={age}
-        onChangeText={setAge}
-        keyboardType="numeric"
-        placeholderTextColor="#999"
-      />
+        <TextInput
+          style={styles.input}
+          placeholder="Course"
+          value={course}
+          onChangeText={setCourse}
+          placeholderTextColor={COLORS.secondaryText}
+        />
 
-      <TextInput
-        style={styles.input}
-        placeholder="Enter Course"
-        value={course}
-        onChangeText={setCourse}
-        placeholderTextColor="#999"
+        <Pressable style={styles.primaryButton} onPress={addStudent}>
+          <Text style={styles.primaryButtonText}>Add Student</Text>
+        </Pressable>
+      </View>
 
-      />
-  
+      <View style={styles.listHeader}>
+        <Text style={styles.sectionTitle}>Students</Text>
+        <Pressable style={styles.secondaryButton} onPress={getStudents}>
+          <Text style={styles.secondaryButtonText}>Get Students</Text>
+        </Pressable>
+      </View>
 
-      <Button
-        title="Add Student"
-        onPress={addStudent}
-      />
-      <View style={{ height: 10 }} />
       <FlatList
         data={students}
         keyExtractor={item => item.id}
+        style={styles.list}
+        contentContainerStyle={styles.listContent}
+        ListEmptyComponent={
+          <Text style={styles.emptyText}>No students yet. Add one to begin.</Text>
+        }
         renderItem={({ item }) => (
-        <View>   
-          <Text>{item.name}</Text> 
-          <Text>Age: {item.age}</Text> 
-          <Text>Course: {item.course}</Text>
+          <View style={styles.studentCard}>
+            <Text style={styles.studentName}>{item.name}</Text>
+            <Text style={styles.studentInfo}>Age: {item.age}</Text>
+            <Text style={styles.studentInfo}>Course: {item.course}</Text>
           </View>
-        )} />
-
-      <Button
-        title="Get Students"
-        onPress={getStudents}
+        )}
       />
-
     </View>
   );
 };
@@ -134,23 +149,103 @@ const AddStudent = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    padding: 30,
+    backgroundColor: COLORS.background,
+    paddingHorizontal: 20,
+    paddingTop: 40,
+    paddingBottom: 16,
   },
-
   heading: {
-    fontSize: 26,
-    fontWeight: 'bold',
-    marginBottom: 25,
+    color: COLORS.text,
+    fontSize: 28,
+    fontWeight: '700',
     textAlign: 'center',
+    marginBottom: 6,
   },
-
-  input: {
+  subheading: {
+    color: COLORS.secondaryText,
+    fontSize: 14,
+    textAlign: 'center',
+    marginBottom: 18,
+  },
+  formCard: {
+    backgroundColor: COLORS.card,
+    borderRadius: 22,
+    padding: 16,
+    marginBottom: 18,
     borderWidth: 1,
-    borderColor: '#aaa',
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 15,
+    borderColor: COLORS.border,
+  },
+  input: {
+    backgroundColor: COLORS.white,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderRadius: 12,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    marginBottom: 12,
+    color: COLORS.text,
+  },
+  primaryButton: {
+    backgroundColor: COLORS.primary,
+    borderRadius: 12,
+    paddingVertical: 14,
+    alignItems: 'center',
+  },
+  primaryButtonText: {
+    color: COLORS.white,
+    fontSize: 16,
+    fontWeight: '700',
+  },
+  listHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  sectionTitle: {
+    color: COLORS.text,
+    fontSize: 20,
+    fontWeight: '700',
+  },
+  secondaryButton: {
+    backgroundColor: COLORS.accent,
+    borderRadius: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+  },
+  secondaryButtonText: {
+    color: COLORS.text,
+    fontWeight: '700',
+  },
+  list: {
+    flex: 1,
+  },
+  listContent: {
+    paddingBottom: 20,
+  },
+  studentCard: {
+    backgroundColor: COLORS.card,
+    borderRadius: 16,
+    padding: 14,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+  },
+  studentName: {
+    color: COLORS.text,
+    fontSize: 18,
+    fontWeight: '700',
+    marginBottom: 4,
+  },
+  studentInfo: {
+    color: COLORS.secondaryText,
+    fontSize: 14,
+    marginBottom: 2,
+  },
+  emptyText: {
+    color: COLORS.secondaryText,
+    textAlign: 'center',
+    marginTop: 20,
   },
 });
 
